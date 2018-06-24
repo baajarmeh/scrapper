@@ -1,8 +1,10 @@
 from urlparse import parse_qsl, urlparse
 from bs4 import BeautifulSoup
 from tripadvisor.models import Listing, WorkingHours
-import requests
-
+try:
+    import requests
+except ImportError:
+    pass
 
 class AnalyzeScrape(object):
     host = 'https://www.tripadvisor.com'
