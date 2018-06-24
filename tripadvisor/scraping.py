@@ -9,7 +9,7 @@ except ImportError:
 class AnalyzeScrape(object):
     host = 'https://www.tripadvisor.com'
 
-    def index_page(self, obj, url, count):
+    def index_scraping(self, obj, url, count):
         print("analyze index page %s" % (url))
         page = requests.get(url)
         bs = BeautifulSoup(page.text, 'html.parser')
@@ -24,9 +24,9 @@ class AnalyzeScrape(object):
                 break
         
         for link in items:
-            self.listing_page(obj, link)
+            self.listing_scraping(obj, link)
     
-    def listing_page(self, obj, url):
+    def listing_scraping(self, obj, url):
         page = requests.get(url)
         bs = BeautifulSoup(page.text, 'html.parser')
 

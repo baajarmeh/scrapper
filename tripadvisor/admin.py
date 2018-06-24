@@ -5,6 +5,7 @@ from jet.admin import CompactInline
 from django.contrib import admin
 from object_actions import BaayObjectActions
 from tripadvisor.models import Destination, Link, Listing, WorkingHours
+from tripadvisor.scraping import AnalyzeScrape
 
 
 class DestinationInline(CompactInline):
@@ -21,7 +22,7 @@ class DestinationAdmin(admin.ModelAdmin):
     inlines = (DestinationInline,)
 
 
-class LinkAdmin(BaayObjectActions, admin.ModelAdmin):
+class LinkAdmin(AnalyzeScrape, BaayObjectActions, admin.ModelAdmin):
     list_display = (
         'url',
         'category',
@@ -31,6 +32,11 @@ class LinkAdmin(BaayObjectActions, admin.ModelAdmin):
         'executed',
     )
     search_fields = ('name', 'category', 'items_count', 'source', 'executed',)
+
+    def scrape_listing(self, request, obj):
+        self.index_scraping(obj, obj.url, obj.items_count)
+    scrape_listing.label = "Scrape Listing"
+    scrape_listing.short_description = "This will be the scraping of the listing"
 
 
 class WorkingHoursInline(CompactInline):

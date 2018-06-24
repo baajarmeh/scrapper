@@ -184,8 +184,8 @@ class BaseBaayObjectActions(object):
 
 
 class BaayObjectActions(BaseBaayObjectActions):
-    change_form_template = "django_object_actions/change_form.html"
-    change_list_template = "django_object_actions/change_list.html"
+    change_form_template = "object_actions/change_form.html"
+    change_list_template = "object_actions/change_list.html"
 
 
 class BaseActionView(View):
