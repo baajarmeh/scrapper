@@ -1,7 +1,7 @@
 """A Django app for adding object tools for models in the admin."""
 
 from .utils import (
-    BaseDjangoObjectActions,
-    DjangoObjectActions,
+    BaseBaayObjectActions,
+    BaayObjectActions,
     takes_instance_or_queryset,
 )
