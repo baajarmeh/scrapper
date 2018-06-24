@@ -17,35 +17,46 @@ class Destination(models.Model):
         return self.name
 
 class Link(models.Model):
-    TOURISM = 'TOURISM'
-    HOTELS = 'HOTELS'
-    BED_BREAKFEST = 'BED_BREAKFEST'
-    VACATION_RENTALS = 'VACATION_RENTALS'
-    VACATION_PACKAGES = 'VACATION_PACKAGES'
-    FLIGHTS = 'FLIGHTS'
+    NATURE_PARKS = 'NATURE_PARKS'
+    MUSEUMS = 'MUSEUMS'
+    SHOPPING = 'SHOPPING'
+    ZOOS_AQUARIUMS = 'ZOOS_AQUARIUMS'
+    FOOD_DRINK = 'FOOD_DRINK'
+    WATER_AMUSEMENT_PARKS = 'WATER_AMUSEMENT_PARKS'
     RESTAURANTS = 'RESTAURANTS'
-    THINGS_TO_DO = 'THINGS_TO_DO'
-    TRAVEL_FOURM = 'TRAVEL_FOURM'
-    TRAVEL_GUIDE = 'TRAVEL_GUIDE'
     CATEGORY_CHOICES = (
-        (TOURISM, 'Tourism'),
-        (HOTELS, 'Hotels'),
-        (BED_BREAKFEST, 'Bed and Breakfast'),
-        (VACATION_RENTALS, 'Vacation Rentals'),
-        (VACATION_PACKAGES, 'Vacation Packages'),
-        (FLIGHTS, 'Flights'),
+        (NATURE_PARKS, 'Nature & Parks'),
+        (MUSEUMS, 'Museums'),
+        (SHOPPING, 'Shopping'),
+        (ZOOS_AQUARIUMS, 'Zoos & Aquariums'),
+        (FOOD_DRINK, 'Food & Drink'),
+        (WATER_AMUSEMENT_PARKS, 'Water & Amusement Parks'),
         (RESTAURANTS, 'Restaurants'),
-        (THINGS_TO_DO, 'Things to Do'),
-        (TRAVEL_FOURM, 'Travel Forum'),
-        (TRAVEL_GUIDE, 'Travel Guide'),
     )
+
+    TRIPADVISOR = 'TRIPADVISOR'
+    BOOKING = 'BOOKING'
+    OTHER = 'OTHER'
+    SOURCE_CHOICES = (
+        (TRIPADVISOR, 'tripadvisor'),
+        (BOOKING, 'Booking'),
+        (OTHER, 'Other'),
+    )
+
     category = models.CharField(
-        max_length=2,
+        max_length=200,
         choices=CATEGORY_CHOICES,
-        default=TOURISM,
+        default=NATURE_PARKS,
     )
     destination = models.ForeignKey('Destination', on_delete=models.CASCADE)
+    items_count = models.IntegerField(default=10)
     url = models.URLField()
+    executed = models.BooleanField(default=False)
+    source = models.CharField(
+        max_length=200,
+        choices=SOURCE_CHOICES,
+        default=TRIPADVISOR,
+    )
 
     class Meta:
         verbose_name = _('Link')
@@ -62,7 +73,7 @@ class Listing(models.Model):
     address = models.CharField(max_length=255, blank=True)
     phone = models.CharField(max_length=255, blank=True)
     website = models.CharField(max_length=255, blank=True)
-    features = models.CharField(max_length=255, blank=True)
+    features = models.TextField(blank=True)
     email = models.CharField(max_length=255, blank=True)
     price_from = models.CharField(max_length=255, blank=True)
     price_to = models.CharField(max_length=255, blank=True)

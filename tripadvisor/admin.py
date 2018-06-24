@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 from jet.admin import CompactInline
 from django.contrib import admin
+from object_actions import BaayObjectActions
 from tripadvisor.models import Destination, Link, Listing, WorkingHours
 
 
@@ -20,13 +21,16 @@ class DestinationAdmin(admin.ModelAdmin):
     inlines = (DestinationInline,)
 
 
-class LinkAdmin(admin.ModelAdmin):
+class LinkAdmin(BaayObjectActions, admin.ModelAdmin):
     list_display = (
         'url',
         'category',
         'destination',
+        'items_count',
+        'source',
+        'executed',
     )
-    search_fields = ('name', 'category',)
+    search_fields = ('name', 'category', 'items_count', 'source', 'executed',)
 
 
 class WorkingHoursInline(CompactInline):
