@@ -1,10 +1,7 @@
-from __future__ import unicode_literals
-
-# from urllib import urlencode
-from urlparse import parse_qsl, urlparse # parse_qs, urlunparse
+from urlparse import parse_qsl, urlparse
 from bs4 import BeautifulSoup
-import requests
 from tripadvisor.models import Listing, WorkingHours
+import requests
 
 
 class AnalyzeScrape(object):
@@ -68,11 +65,12 @@ class AnalyzeScrape(object):
         while i < len(hours):
             day = hours[i].select('span.day')[0].get_text()
             between = hours[i].select('span.hours .hoursRange')[0].get_text().split(' - ')
+
             working = WorkingHours(
-                listing=listing
-                day=day
-                time_from=str(between[0])
-                time_to=str(between[1])
+                listing=listing,
+                day=day,
+                time_from=between[0],
+                time_to=between[1],
             )
             working.save()
             i += 1
