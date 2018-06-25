@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from urlparse import parse_qsl, urlparse
 from bs4 import BeautifulSoup
 from tripadvisor.models import Listing, WorkingHours

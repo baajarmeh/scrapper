@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from jet.admin import CompactInline
 from django.contrib import admin
-from object_actions import BaayObjectActions
+from tripadvisor.actions import BaayObjectActions
 from tripadvisor.models import Destination, Link, Listing, WorkingHours
 from tripadvisor.scraping import AnalyzeScrape
 

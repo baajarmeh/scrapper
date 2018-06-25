@@ -14,7 +14,7 @@ class Destination(models.Model):
         verbose_name_plural = _('Destinations')
 
     def __str__(self):
-        return self.name
+        return self.name.encode('utf8')
 
 class Link(models.Model):
     NATURE_PARKS = 'NATURE_PARKS'
