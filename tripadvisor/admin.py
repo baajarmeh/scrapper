@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from jet.admin import CompactInline
+from django import forms
 from django.contrib import admin
 from tripadvisor.actions import BaayObjectActions
 from tripadvisor.models import Destination, Link, Listing, WorkingHours
@@ -14,12 +15,22 @@ class DestinationInline(CompactInline):
     show_change_link = True
 
 
+class CustomDestinationForm(forms.ModelForm):
+    class Meta:
+        model = Destination
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super(CustomDestinationForm, self).__init__(*args, **kwargs)
+        self.fields['parent'].queryset = Destination.objects.filter(parent__isnull=True)
+
+
 class DestinationAdmin(admin.ModelAdmin):
+    form = CustomDestinationForm
     list_display = (
         'name',
     )
     search_fields = ('name', 'parent')
-    inlines = (DestinationInline,)
 
 
 class LinkAdmin(AnalyzeScrape, BaayObjectActions, admin.ModelAdmin):
