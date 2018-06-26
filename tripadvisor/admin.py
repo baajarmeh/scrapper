@@ -6,8 +6,8 @@ from django import forms
 from django.contrib import admin
 from tripadvisor.models import Destination, Link, Listing, WorkingHours
 from tripadvisor.forms import DestinationForm, LinkForm
-# from tripadvisor.scraping import AnalyzeScrape
-from tripadvisor.scraper import TripadvisorScraper
+from tripadvisor.scraper.restaurant import Restaurant
+from tripadvisor.scraper.things_todo import ThingsTodo
 
 
 class DestinationInline(CompactInline):
@@ -38,11 +38,23 @@ class LinkAdmin(admin.ModelAdmin):
     search_fields = ('destination', 'name', 'category', 'items_count', 'source', 'executed',)
 
     def scrape_listing(self, request, queryset):
+        c = 0
         for obj in queryset:
-            scraper = TripadvisorScraper()
+            # if not obj.executed:
+            if obj.category == 'RESTAURANTS':
+                scraper = Restaurant()
+            else:
+                scraper = ThingsTodo()
+
             scraper.fetch_listings(obj)
             scraper.close()
-        self.message_user(request, "Listing successfully scraped.")
+            c += 1
+        
+        if c == 1:
+            message_bit = "1 link was"
+        else:
+            message_bit = "%s link were" % c
+        self.message_user(request, "%s scraped successfully." % message_bit)
     scrape_listing.short_description = "Scrape Listing"
 
 
@@ -58,8 +70,10 @@ class ListingAdmin(admin.ModelAdmin):
         'title_ar',
         'about',
         'about_ar',
+        'features',
+        'features_ar',
     )
-    list_editable = ('title_ar', 'about_ar',)
+    list_editable = ('title_ar', 'about_ar', 'features_ar')
     list_filter = (
         'title',
         'link__category',

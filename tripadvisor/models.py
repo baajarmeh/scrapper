@@ -36,11 +36,9 @@ class Link(models.Model):
 
     TRIPADVISOR = 'TRIPADVISOR'
     BOOKING = 'BOOKING'
-    OTHER = 'OTHER'
     SOURCE_CHOICES = (
         (TRIPADVISOR, 'tripadvisor'),
         (BOOKING, 'Booking'),
-        (OTHER, 'Other'),
     )
 
     category = models.CharField(
@@ -68,20 +66,21 @@ class Link(models.Model):
 class Listing(models.Model):
     url = models.URLField()
     title = models.CharField(max_length=255)
-    about = models.TextField(blank=True)
+    about = models.TextField(blank=True, null=True)
     link = models.ForeignKey('Link', on_delete=models.CASCADE)
-    address = models.CharField(max_length=255, blank=True)
-    phone = models.CharField(max_length=255, blank=True)
-    website = models.CharField(max_length=255, blank=True)
-    features = models.TextField(blank=True)
-    email = models.CharField(max_length=255, blank=True)
-    price_from = models.CharField(max_length=255, blank=True)
-    price_to = models.CharField(max_length=255, blank=True)
-    lat = models.CharField(max_length=255, blank=True)
-    lng = models.CharField(max_length=255, blank=True)
+    address = models.CharField(max_length=255, blank=True, null=True)
+    phone = models.CharField(max_length=255, blank=True, null=True)
+    website = models.CharField(max_length=255, blank=True, null=True)
+    features = models.TextField(blank=True, null=True)
+    email = models.CharField(max_length=255, blank=True, null=True)
+    price_from = models.CharField(max_length=255, blank=True, null=True)
+    price_to = models.CharField(max_length=255, blank=True, null=True)
+    lat = models.CharField(max_length=255, blank=True, null=True)
+    lng = models.CharField(max_length=255, blank=True, null=True)
 
-    about_ar = models.TextField(blank=True)
-    title_ar = models.TextField(blank=True)
+    about_ar = models.TextField(blank=True, null=True)
+    title_ar = models.TextField(blank=True, null=True)
+    features_ar = models.TextField(blank=True, null=True)
 
     class Meta:
         verbose_name = _('Listing')
