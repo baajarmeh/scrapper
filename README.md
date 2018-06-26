@@ -1,2 +1,2 @@
-# tripadvisor-scraper
-scrape places from tripadvisor
+# scrapper
+scrapper from tripadvisor and booking

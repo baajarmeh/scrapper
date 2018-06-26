@@ -6,8 +6,8 @@ from django import forms
 from django.contrib import admin
 from tripadvisor.models import Destination, Link, Listing, WorkingHours
 from tripadvisor.forms import DestinationForm, LinkForm
-from tripadvisor.scraper.restaurant import Restaurant
-from tripadvisor.scraper.things_todo import ThingsTodo
+from tripadvisor.scrapper.restaurant import Restaurant
+from tripadvisor.scrapper.things_todo import ThingsTodo
 
 
 class DestinationInline(CompactInline):
@@ -41,12 +41,12 @@ class LinkAdmin(admin.ModelAdmin):
         for obj in queryset:
             # if not obj.executed:
             if obj.category == 'RESTAURANTS':
-                scraper = Restaurant()
+                scrapper = Restaurant()
             else:
-                scraper = ThingsTodo()
+                scrapper = ThingsTodo()
 
-            scraper.fetch_listings(obj)
-            scraper.close()
+            scrapper.fetch_listings(obj)
+            scrapper.close()
             c += 1
         
         if c == 1:
