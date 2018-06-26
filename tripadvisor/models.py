@@ -34,13 +34,6 @@ class Link(models.Model):
         (RESTAURANTS, 'Restaurants'),
     )
 
-    TRIPADVISOR = 'TRIPADVISOR'
-    BOOKING = 'BOOKING'
-    SOURCE_CHOICES = (
-        (TRIPADVISOR, 'tripadvisor'),
-        (BOOKING, 'Booking'),
-    )
-
     category = models.CharField(
         max_length=200,
         choices=CATEGORY_CHOICES,
@@ -50,11 +43,6 @@ class Link(models.Model):
     items_count = models.IntegerField(default=10)
     url = models.URLField()
     executed = models.BooleanField(default=False)
-    source = models.CharField(
-        max_length=200,
-        choices=SOURCE_CHOICES,
-        default=TRIPADVISOR,
-    )
 
     class Meta:
         verbose_name = _('Link')

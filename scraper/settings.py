@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tripadvisor',
+    'booking',
     'adminsortable2',
     'ckeditor',
     'tinymce',

@@ -32,10 +32,9 @@ class LinkAdmin(admin.ModelAdmin):
         'category',
         'destination',
         'items_count',
-        'source',
         'executed',
     )
-    search_fields = ('destination', 'name', 'category', 'items_count', 'source', 'executed',)
+    search_fields = ('destination', 'name', 'category', 'items_count', 'executed',)
 
     def scrape_listing(self, request, queryset):
         c = 0
