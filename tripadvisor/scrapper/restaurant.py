@@ -2,7 +2,6 @@
 import time
 import logging
 from selenium import webdriver
-from selenium.webdriver.common.action_chains import ActionChains
 from selenium.common.exceptions import NoSuchElementException
 from tripadvisor.models import Listing, WorkingHours
 

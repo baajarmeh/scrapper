@@ -42,4 +42,4 @@ class Hotel(models.Model):
         verbose_name_plural = _('Hotels')
 
     def __str__(self):
-        return self.title
+        return self.title.encode('utf8')
