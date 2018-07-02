@@ -40,7 +40,7 @@ class Hotel():
         elements = self.driver.find_elements_by_css_selector('#hotellist_inner .sr_item.sr_property_block')
 
         if (len(elements) >= self.obj.items_count):
-            self._fetch_page()
+            self._fetch_page(1)
         else:
             page_count = ((self.obj.items_count - 1) // len(elements)) + 1
             for p in range(1, page_count):

@@ -1,0 +1,14 @@
+{% extends 'admin/base.html' %}
+
+{% load i18n %}
+
+{% block title %}{{ code }} - {{ message }}{% endblock %}
+
+{% block content %}
+    <div class="content-main">
+        <h1>{{ code }}</h1>
+        <p class="errornote">
+            {{ message }}
+        </p>
+	</div>
+{% endblock %}

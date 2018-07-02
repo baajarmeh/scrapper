@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.db import models
+from django.contrib.contenttypes.fields import GenericRelation
+from tripadvisor.models import Photo
 
 class Source(models.Model):
     destination = models.ForeignKey('tripadvisor.Destination', on_delete=models.CASCADE)
@@ -36,6 +38,8 @@ class Hotel(models.Model):
     about_ar = models.TextField(blank=True, null=True)
     title_ar = models.TextField(blank=True, null=True)
     features_ar = models.TextField(blank=True, null=True)
+
+    photos = GenericRelation('tripadvisor.Photo')
 
     class Meta:
         verbose_name = _('Hotel')

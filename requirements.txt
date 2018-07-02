@@ -1,11 +1,10 @@
 Django>=1.8,<1.12
-beautifulsoup4>=4.6
 selenium>=3.12
 requests==2.13.0
 pyparsing==2.2.0
 six==1.10.0
-django-admin-sortable2==0.6.4
+Pillow>=3.4.0
+sorl-thumbnail>=12.4.0
 -e git+https://github.com/geex-arts/django-jet.git#egg=django-jet
 django-ckeditor==5.1.1
 django-tinymce==2.0.4
-html5lib

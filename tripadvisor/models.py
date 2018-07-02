@@ -1,9 +1,21 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.db import models
+from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
+from django.contrib.contenttypes.models import ContentType
+from sorl.thumbnail import ImageField
 
+
+class Photo(models.Model):
+    image = ImageField(upload_to='photos')
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.PositiveIntegerField()
+    content_object = GenericForeignKey('content_type', 'object_id')
+
+    def __str__(self):
+        return self.image.name
 
 class Destination(models.Model):
     name = models.CharField(max_length=255)
@@ -70,6 +82,8 @@ class Listing(models.Model):
     title_ar = models.TextField(blank=True, null=True)
     features_ar = models.TextField(blank=True, null=True)
 
+    photos = GenericRelation('Photo')
+
     class Meta:
         verbose_name = _('Listing')
         verbose_name_plural = _('Listings')
@@ -88,4 +102,4 @@ class WorkingHours(models.Model):
         verbose_name_plural = _('WorkingHours')
 
     def __str__(self):
-        return self.day
+        return self.day.encode('utf8')
